@@ -97,7 +97,7 @@ public class FloatingActionsMenu extends ViewGroup {
     mAddButtonColorPressed = attr.getColor(R.styleable.FloatingActionsMenu_fab_addButtonColorPressed, getColor(android.R.color.holo_blue_light));
     mAddButtonSize = attr.getInt(R.styleable.FloatingActionsMenu_fab_addButtonSize, FloatingActionButton.SIZE_NORMAL);
     mAddButtonIcon = attr.getResourceId(R.styleable.FloatingActionsMenu_fab_addButtonIcon, 0);
-    mAddButtonRotate = attr.getBoolean(R.styleable.FloatingActionsMenu_fab_addButtonRotate, true);
+    mAddButtonRotate = attr.getBoolean(R.styleable.FloatingActionsMenu_fab_addButtonRotate, mAddButtonIcon == 0);
     mAddButtonStrokeVisible = attr.getBoolean(R.styleable.FloatingActionsMenu_fab_addButtonStrokeVisible, true);
     mExpandDirection = attr.getInt(R.styleable.FloatingActionsMenu_fab_expandDirection, EXPAND_UP);
     mLabelsStyle = attr.getResourceId(R.styleable.FloatingActionsMenu_fab_labelStyle, 0);
@@ -160,7 +160,7 @@ public class FloatingActionsMenu extends ViewGroup {
 
       @Override
       Drawable getIconDrawable() {
-        if(mAddButtonIcon>0 || !mAddButtonRotate)
+        if(!mAddButtonRotate)
         {
           return super.getIconDrawable();
         }
