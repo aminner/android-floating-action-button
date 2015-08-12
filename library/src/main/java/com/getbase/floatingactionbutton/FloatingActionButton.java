@@ -47,7 +47,7 @@ public class FloatingActionButton extends ImageButton {
   int mColorDisabled;
   String mTitle;
   @DrawableRes
-  private int mIcon;
+  int mIcon;
   private Drawable mIconDrawable;
   private int mSize;
 
@@ -77,7 +77,8 @@ public class FloatingActionButton extends ImageButton {
     mColorPressed = attr.getColor(R.styleable.FloatingActionButton_fab_colorPressed, getColor(android.R.color.holo_blue_light));
     mColorDisabled = attr.getColor(R.styleable.FloatingActionButton_fab_colorDisabled, getColor(android.R.color.darker_gray));
     mSize = attr.getInt(R.styleable.FloatingActionButton_fab_size, SIZE_NORMAL);
-    mIcon = attr.getResourceId(R.styleable.FloatingActionButton_fab_icon, 0);
+    if(mIcon == 0)
+      mIcon = attr.getResourceId(R.styleable.FloatingActionButton_fab_icon, 0);
     mTitle = attr.getString(R.styleable.FloatingActionButton_fab_title);
     mStrokeVisible = attr.getBoolean(R.styleable.FloatingActionButton_fab_stroke_visible, true);
     attr.recycle();

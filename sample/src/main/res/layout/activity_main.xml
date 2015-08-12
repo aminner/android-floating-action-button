@@ -124,6 +124,31 @@
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/multiple_actions2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        fab:fab_addButtonIcon="@drawable/ic_fab_star"
+        fab:fab_addButtonRotate="true"
+        fab:fab_addButtonColorNormal="@color/pink_pressed"
+        fab:fab_addButtonColorPressed="@color/white_pressed"
+        fab:fab_addButtonPlusIconColor="@color/half_black"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        android:layout_above="@+id/setter_drawable"
+        android:layout_alignRight="@+id/normal_plus"
+        android:layout_alignEnd="@+id/normal_plus">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_a2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_title="Testing A"
+            fab:fab_colorPressed="@color/white_pressed"/>
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/multiple_actions_down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -133,6 +158,7 @@
         fab:fab_addButtonColorNormal="@color/white"
         fab:fab_addButtonColorPressed="@color/white_pressed"
         fab:fab_addButtonSize="mini"
+        fab:fab_addButtonRotate="false"
         fab:fab_addButtonPlusIconColor="@color/half_black"
         fab:fab_expandDirection="down"
         fab:fab_labelStyle="@style/menu_labels_style"

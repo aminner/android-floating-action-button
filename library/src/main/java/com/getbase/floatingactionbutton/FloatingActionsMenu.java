@@ -57,6 +57,8 @@ public class FloatingActionsMenu extends ViewGroup {
   private int mLabelsStyle;
   private int mLabelsPosition;
   private int mButtonsCount;
+  private int mAddButtonIcon;
+  private boolean mAddButtonRotate;
 
   private TouchDelegateGroup mTouchDelegateGroup;
 
@@ -94,6 +96,8 @@ public class FloatingActionsMenu extends ViewGroup {
     mAddButtonColorNormal = attr.getColor(R.styleable.FloatingActionsMenu_fab_addButtonColorNormal, getColor(android.R.color.holo_blue_dark));
     mAddButtonColorPressed = attr.getColor(R.styleable.FloatingActionsMenu_fab_addButtonColorPressed, getColor(android.R.color.holo_blue_light));
     mAddButtonSize = attr.getInt(R.styleable.FloatingActionsMenu_fab_addButtonSize, FloatingActionButton.SIZE_NORMAL);
+    mAddButtonIcon = attr.getResourceId(R.styleable.FloatingActionsMenu_fab_addButtonIcon, 0);
+    mAddButtonRotate = attr.getBoolean(R.styleable.FloatingActionsMenu_fab_addButtonRotate, true);
     mAddButtonStrokeVisible = attr.getBoolean(R.styleable.FloatingActionsMenu_fab_addButtonStrokeVisible, true);
     mExpandDirection = attr.getInt(R.styleable.FloatingActionsMenu_fab_expandDirection, EXPAND_UP);
     mLabelsStyle = attr.getResourceId(R.styleable.FloatingActionsMenu_fab_labelStyle, 0);
@@ -150,26 +154,33 @@ public class FloatingActionsMenu extends ViewGroup {
         mColorNormal = mAddButtonColorNormal;
         mColorPressed = mAddButtonColorPressed;
         mStrokeVisible = mAddButtonStrokeVisible;
+        mIcon = mAddButtonIcon;
         super.updateBackground();
       }
 
       @Override
       Drawable getIconDrawable() {
-        final RotatingDrawable rotatingDrawable = new RotatingDrawable(super.getIconDrawable());
-        mRotatingDrawable = rotatingDrawable;
+        if(mAddButtonIcon>0 || !mAddButtonRotate)
+        {
+          return super.getIconDrawable();
+        }
+        else{
+          final RotatingDrawable rotatingDrawable = new RotatingDrawable(super.getIconDrawable());
+          mRotatingDrawable = rotatingDrawable;
 
-        final OvershootInterpolator interpolator = new OvershootInterpolator();
+          final OvershootInterpolator interpolator = new OvershootInterpolator();
 
-        final ObjectAnimator collapseAnimator = ObjectAnimator.ofFloat(rotatingDrawable, "rotation", EXPANDED_PLUS_ROTATION, COLLAPSED_PLUS_ROTATION);
-        final ObjectAnimator expandAnimator = ObjectAnimator.ofFloat(rotatingDrawable, "rotation", COLLAPSED_PLUS_ROTATION, EXPANDED_PLUS_ROTATION);
+          final ObjectAnimator collapseAnimator = ObjectAnimator.ofFloat(rotatingDrawable, "rotation", EXPANDED_PLUS_ROTATION, COLLAPSED_PLUS_ROTATION);
+          final ObjectAnimator expandAnimator = ObjectAnimator.ofFloat(rotatingDrawable, "rotation", COLLAPSED_PLUS_ROTATION, EXPANDED_PLUS_ROTATION);
 
-        collapseAnimator.setInterpolator(interpolator);
-        expandAnimator.setInterpolator(interpolator);
+          collapseAnimator.setInterpolator(interpolator);
+          expandAnimator.setInterpolator(interpolator);
 
-        mExpandAnimation.play(expandAnimator);
-        mCollapseAnimation.play(collapseAnimator);
+          mExpandAnimation.play(expandAnimator);
+          mCollapseAnimation.play(collapseAnimator);
 
-        return rotatingDrawable;
+          return rotatingDrawable;
+        }
       }
     };
 

@@ -55,34 +55,34 @@ public class AddFloatingActionButton extends FloatingActionButton {
   }
 
   @Override
-  public void setIcon(@DrawableRes int icon) {
-    throw new UnsupportedOperationException("Use FloatingActionButton if you want to use custom icon");
-  }
-
-  @Override
   Drawable getIconDrawable() {
-    final float iconSize = getDimension(R.dimen.fab_icon_size);
-    final float iconHalfSize = iconSize / 2f;
+    if(mIcon > 0) {
+      return super.getIconDrawable();
+    }
+    else {
+      final float iconSize = getDimension(R.dimen.fab_icon_size);
+      final float iconHalfSize = iconSize / 2f;
 
-    final float plusSize = getDimension(R.dimen.fab_plus_icon_size);
-    final float plusHalfStroke = getDimension(R.dimen.fab_plus_icon_stroke) / 2f;
-    final float plusOffset = (iconSize - plusSize) / 2f;
+      final float plusSize = getDimension(R.dimen.fab_plus_icon_size);
+      final float plusHalfStroke = getDimension(R.dimen.fab_plus_icon_stroke) / 2f;
+      final float plusOffset = (iconSize - plusSize) / 2f;
 
-    final Shape shape = new Shape() {
-      @Override
-      public void draw(Canvas canvas, Paint paint) {
-        canvas.drawRect(plusOffset, iconHalfSize - plusHalfStroke, iconSize - plusOffset, iconHalfSize + plusHalfStroke, paint);
-        canvas.drawRect(iconHalfSize - plusHalfStroke, plusOffset, iconHalfSize + plusHalfStroke, iconSize - plusOffset, paint);
-      }
-    };
+      final Shape shape = new Shape() {
+        @Override
+        public void draw(Canvas canvas, Paint paint) {
+          canvas.drawRect(plusOffset, iconHalfSize - plusHalfStroke, iconSize - plusOffset, iconHalfSize + plusHalfStroke, paint);
+          canvas.drawRect(iconHalfSize - plusHalfStroke, plusOffset, iconHalfSize + plusHalfStroke, iconSize - plusOffset, paint);
+        }
+      };
 
-    ShapeDrawable drawable = new ShapeDrawable(shape);
+      ShapeDrawable drawable = new ShapeDrawable(shape);
 
-    final Paint paint = drawable.getPaint();
-    paint.setColor(mPlusColor);
-    paint.setStyle(Style.FILL);
-    paint.setAntiAlias(true);
+      final Paint paint = drawable.getPaint();
+      paint.setColor(mPlusColor);
+      paint.setStyle(Style.FILL);
+      paint.setAntiAlias(true);
 
-    return drawable;
+      return drawable;
+    }
   }
 }
